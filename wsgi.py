@@ -1044,11 +1044,34 @@ class Hello(object):
     spur.Spur(ctx).Gear(x,y+rp_g1+rp_g2,rp_g2,n_g2, pa, "black")
     ctx.restore()
 
-    ###############################開始加###################################
+    # 將第3齒輪逆時鐘轉 90 度之後, 再多轉一齒, 以便與第1齒輪進行囓合
+    ctx.save()
+    # translate to the origin of second gear
+    ctx.translate(x+rp_g2+rp_g3,y+rp_g1+rp_g2)
+    # rotate to engage
+
+    ctx.rotate(-pi/2+(pi/n_g3*0.5)*(n_g2%4))
+
+    # put it back
+    ctx.translate(-(x+rp_g2+rp_g3),-(y+rp_g1+rp_g2))
+    spur.Spur(ctx).Gear(x+rp_g2+rp_g3,y+rp_g1+rp_g2,rp_g3,n_g3, pa, "black")
+    ctx.restore()
 
 
+    # 將第4齒輪逆時鐘轉 90 度之後, 再多轉一齒, 以便與第1齒輪進行囓合
+    ctx.save()
+    # translate to the origin of second gear
+    ctx.translate(x+rp_g2+rp_g3,y+rp_g1+rp_g2+rp_g3+rp_g4)
 
-    #########################################################################
+    # rotate to engage
+
+    a=(n_g2%2)-1
+    ctx.rotate(-pi/n_g4*a)
+
+    # put it back
+    ctx.translate(-(x+rp_g2+rp_g3),-(y+rp_g1+rp_g2+rp_g3+rp_g4))
+    spur.Spur(ctx).Gear(x+rp_g2+rp_g3,y+rp_g1+rp_g2+rp_g3+rp_g4,rp_g4,n_g4, pa, "black")
+    ctx.restore()
 
     </script>
     <canvas id="plotarea" width="3800" height="12000"></canvas>
